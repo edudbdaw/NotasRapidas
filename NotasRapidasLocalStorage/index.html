@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css.css">
+    <title>LocalStorage Practica Eduardo Duran</title>
+</head>
+
+<body>
+    <h1 class="text-center my-7 font-bold text-2xl ">NOTAS RAPIDAS</h1>
+    <main class="flex flex-row justify-center gap-50">
+        <div class="" id="part1">
+            <form id="formulario">
+                <label class="font-semibold" for="notaRapida">Escribe tu nota : </label><br>
+                <textarea class="border-1 my-4" name="texto" id="textoNota" cols="35" rows="5"></textarea> <br>
+                <div class="flex justify-center">
+                    <input type="submit" value="Añadir"
+                        class="rounded-lg bg-orange-500 p-2 text-amber-50 hover:bg-orange-600 hover:p-2.5">
+                </div>
+            </form>
+        </div>
+        <div class="" id="part2">
+            <p class="font-semibold">Lista Notas </p>
+            <div id="listaNotas">
+
+            </div>
+        </div>
+    </main>
+    <script src="js.js"></script>
+
+</body>
+
+
+</html>
