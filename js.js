@@ -13,8 +13,10 @@ function addNota() {
     if (nota.length === 0) {
         manejoErrores("La nota no puede ir vacia");
     }
-    console.log(nota);
     
+    if (nota.length >= 10) {
+        manejoErrores("La nota es muy larga , limite de 5000 caracteres");
+    }
 }
 
 
@@ -22,7 +24,7 @@ function addNota() {
 function manejoErrores(error) {
     const mensajeError = document.createElement('p');
     mensajeError.textContent = error;
-    mensajeError.classList.add("bg-red-600" , "text-white" , "rounded-lg" , "my-3" , "text-center",  "hover:p-1.5");
+    mensajeError.classList.add("bg-red-600" , "p-1", "text-white" , "rounded-lg" , "my-3" , "text-center",  "hover:p-1.5");
 
     //Insert in div contenedor
     const contenedor = document.getElementById('part1');
