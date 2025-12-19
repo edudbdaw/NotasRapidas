@@ -1,25 +1,25 @@
 
-const formulario = document.getElementById('formulario');
+const form = document.getElementById('form');
 const lista = document.getElementById('listaNotas');
 let notas = [];
 
 //If i add () to the fun , this will respond before than the press submit
-formulario.addEventListener('submit',manejoFormulario);
+form.addEventListener('submit', handleForm);
 
 //Recovery LocalStorage when the dom content will have loaded
-    document.addEventListener('DOMContentLoaded', () => {
-        notas = JSON.parse(localStorage.getItem('notes')) || [];
-        addHTML();
-    })
+document.addEventListener('DOMContentLoaded', () => {
+    notas = JSON.parse(localStorage.getItem('notes')) || [];
+    addHTML();
+})
 
 /**
  * Manage and call addNote function when we submit the form
  */
-function manejoFormulario(e) {
+function handleForm(e) {
     e.preventDefault();
     addNota();
 
-} 
+}
 
 /**
  * funcition for add a note
@@ -31,48 +31,48 @@ function addNota() {
         manejoErrores("La nota no puede ir vacia");
         return;
     }
-    
+
     if (nota.length >= 1000) {
-        manejoErrores("La nota es muy larga , limite de 5000 caracteres");
+        manejoErrores("Too long , limit of 5000 chars");
         return;
-    }else {
-        id = new Date (Date.now());
-        
+    } else {
+        id = new Date(Date.now());
+
         notaObj = {
-            id : id,
-            text : nota
+            id: id,
+            text: nota
         }
-        notas = [...notas , notaObj];
-        
+        notas = [...notas, notaObj];
+
         addHTML();
-        
-        formulario.reset(); 
+
+        form.reset();
     }
 }
 
 
 /**
- * Show a error mesagge in the html
+ * Show a error mesagge in display
  * @param {String} error 
  */
 function manejoErrores(error) {
     const mensajeError = document.createElement('p');
     mensajeError.textContent = '';
     mensajeError.textContent = error;
-    mensajeError.classList.add("bg-red-600" , "p-1", "text-white" , "rounded-lg" , "my-3" , "text-center",  "hover:p-1.5");
+    mensajeError.classList.add("bg-red-600", "p-1", "text-white", "rounded-lg", "my-3", "text-center", "hover:p-1.5");
 
-    //Insert in div contenedor
+    //Insert into div contenedor
     const contenedor = document.getElementById('part1');
     contenedor.appendChild(mensajeError)
 
     /**
-     * function for delete error message after 3seg
+     * function to delete error message after 3seg
      * @function 
      */
-     setTimeout(() => {
+    setTimeout(() => {
         mensajeError.textContent = "";
-        mensajeError.classList.remove("bg-red-600" , "p-1", "text-white" , "rounded-lg" , "my-3" , "text-center",  "hover:p-1.5");
-     }, 3000);
+        mensajeError.classList.remove("bg-red-600", "p-1", "text-white", "rounded-lg", "my-3", "text-center", "hover:p-1.5");
+    }, 3000);
 }
 
 const listaNotas = document.getElementById("listaNotas");
@@ -84,15 +84,15 @@ function addHTML() {
     notas.forEach(note => {
         let li = document.createElement('li');
         li.textContent = `${note.text}`;
-        let btnDelete = document.createElement("button") ;
+        let btnDelete = document.createElement("button");
         btnDelete.textContent = 'X';
-        btnDelete.classList.add("bg-red-500" , "text-white", "mx-15" , "p-1", "rounded-lg");
+        btnDelete.classList.add("bg-red-500", "text-white", "mx-15", "p-1", "rounded-lg");
         li.appendChild(btnDelete);
         ul.appendChild(li);
 
         id = note.id;
 
-        btnDelete.addEventListener("click", function(e) {
+        btnDelete.addEventListener("click", function (e) {
             e.preventDefault();
             deleteNote(note.id);
         })
@@ -101,15 +101,15 @@ function addHTML() {
     listaNotas.appendChild(ul);
 
     synclocalStorage();
-    
+
 }
 
 /**
- * Guardar en local storage
+ * Store in localstorage
  */
 
-function synclocalStorage () {
-    localStorage.setItem("notes" , JSON.stringify(notas));
+function synclocalStorage() {
+    localStorage.setItem("notes", JSON.stringify(notas));
 }
 
 /**
@@ -117,7 +117,7 @@ function synclocalStorage () {
  * @function 
  */
 function removeHtml() {
-    while(listaNotas.firstChild){
+    while (listaNotas.firstChild) {
         listaNotas.removeChild(listaNotas.firstChild);
     }
 }
@@ -129,5 +129,4 @@ function deleteNote(id) {
     notas = notas.filter(notas => notas.id != id);
     synclocalStorage();
     addHTML();
-    
 }
