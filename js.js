@@ -3,12 +3,22 @@ const formulario = document.getElementById('formulario');
 const lista = document.getElementById('listaNotas');
 let notas = [];
 
+//If i add () to the fun , this will respond before than the press submit
+formulario.addEventListener('submit',manejoFormulario);
+
+//Recovery LocalStorage when the dom content will have loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        notas = JSON.parse(localStorage.getItem('notes')) || [];
+        addHTML();
+    })
+
 /**
  * Manage and call addNote function when we submit the form
  */
 function manejoFormulario(e) {
     e.preventDefault();
     addNota();
+
 } 
 
 /**
@@ -78,7 +88,17 @@ function addHTML() {
     });
 
     listaNotas.appendChild(ul);
+
+    synclocalStorage();
     
+}
+
+/**
+ * Guardar en local storage
+ */
+
+function synclocalStorage () {
+    localStorage.setItem("notes" , JSON.stringify(notas));
 }
 
 /**
@@ -91,5 +111,3 @@ function removeHtml() {
     }
 }
 
-//If i add () to the fun , this will respond before than the press submit
-formulario.addEventListener('submit',manejoFormulario);
