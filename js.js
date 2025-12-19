@@ -36,10 +36,10 @@ function addNota() {
         manejoErrores("La nota es muy larga , limite de 5000 caracteres");
         return;
     }else {
-        date = new Date (Date.now());
+        id = new Date (Date.now());
         
         notaObj = {
-            date : date,
+            id : id,
             text : nota
         }
         notas = [...notas , notaObj];
@@ -83,8 +83,19 @@ function addHTML() {
     let ul = document.createElement('ul');
     notas.forEach(note => {
         let li = document.createElement('li');
-        li.textContent = `Nota : ${note.text} at ${note.date}`    
+        li.textContent = `${note.text}`;
+        let btnDelete = document.createElement("button") ;
+        btnDelete.textContent = 'X';
+        btnDelete.classList.add("bg-red-500" , "text-white", "mx-15" , "p-1", "rounded-lg");
+        li.appendChild(btnDelete);
         ul.appendChild(li);
+
+        id = note.id;
+
+        btnDelete.addEventListener("click", function(e) {
+            e.preventDefault();
+            deleteNote(note.id);
+        })
     });
 
     listaNotas.appendChild(ul);
@@ -111,3 +122,12 @@ function removeHtml() {
     }
 }
 
+/**
+ * Delete note button
+*/
+function deleteNote(id) {
+    notas = notas.filter(notas => notas.id != id);
+    synclocalStorage();
+    addHTML();
+    
+}
